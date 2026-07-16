@@ -67,6 +67,4 @@ python -m tests.test_memory
 ##  Competition Strategy (XPRIZE)
 Vectra AI is designed to achieve **Zero-Click Closing**. By combining strict JSON guardrails with multi-agent specialization, we ensure that the AI doesn't just "talk"—it executes real business logic safely and reliably.
 
----
 *Built with love for the Build with Gemini XPRIZE 2026.*
-```

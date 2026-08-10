@@ -19,6 +19,8 @@ No expensive CRM. No database. No sales team. **Near-zero cost per deal —
 entire system runs on free tiers, with DeepSeek reasoning averaging well
 under $0.01 per closed deal.**
 
+![Vectra AI War Room](assets/war_room.png)
+
 ## 🧬 The 4 Signature Capabilities
 
 | # | Capability | What it does |

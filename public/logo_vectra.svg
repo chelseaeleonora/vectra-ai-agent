@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="460" height="96" viewBox="0 0 460 96">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#00E5FF"/>
+      <stop offset="1" stop-color="#FF2E63"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="460" height="96" fill="#05070D"/>
+  <g filter="url(#glow)">
+    <path d="M14 16 L34 16 L48 56 L62 16 L82 16 L56 82 L40 82 Z" fill="url(#g)"/>
+  </g>
+  <text x="104" y="58" font-family="Segoe UI, Arial, sans-serif" font-size="34" font-weight="700" letter-spacing="6" fill="#E8FBFF">VECTRA <tspan fill="#00E5FF">AI</tspan></text>
+  <text x="106" y="80" font-family="Segoe UI, Arial, sans-serif" font-size="12" letter-spacing="4" fill="#FF2E63">AUTONOMOUS CRO</text>
+</svg>

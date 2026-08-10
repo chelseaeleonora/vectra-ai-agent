@@ -1,0 +1,119 @@
+/* =====================================================
+   VECTRA AI — NEON CYBERPUNK THEME
+   Palette: Void #05070D | Cyan #00E5FF | Magenta #FF2E63
+   ===================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=JetBrains+Mono:wght@400;600&display=swap');
+
+/* --- Base: void background + cyber grid --- */
+body {
+    background: #05070d !important;
+    background-image:
+        linear-gradient(rgba(0, 229, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 229, 255, 0.04) 1px, transparent 1px) !important;
+    background-size: 42px 42px !important;
+}
+
+/* --- Header --- */
+header {
+    background: rgba(5, 7, 13, 0.92) !important;
+    border-bottom: 1px solid rgba(0, 229, 255, 0.3) !important;
+    box-shadow: 0 0 24px rgba(0, 229, 255, 0.12) !important;
+}
+
+/* --- Glass cards (messages & steps) --- */
+.MuiPaper-root {
+    background: rgba(8, 13, 24, 0.78) !important;
+    border: 1px solid rgba(0, 229, 255, 0.16) !important;
+    border-radius: 14px !important;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 18px rgba(0, 229, 255, 0.07) !important;
+}
+
+/* --- Typography --- */
+.MuiTypography-root { color: #d9e8f2 !important; }
+h1, h2, h3, h4 {
+    font-family: 'Orbitron', sans-serif !important;
+    color: #00e5ff !important;
+    text-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
+    letter-spacing: 0.5px;
+}
+strong, b { color: #ff2e63 !important; }
+code, pre {
+    font-family: 'JetBrains Mono', monospace !important;
+    background: #0a1020 !important;
+    border: 1px solid rgba(0, 229, 255, 0.22) !important;
+    color: #7ef9ff !important;
+}
+
+/* --- Buttons (neon glow) --- */
+.MuiButton-containedPrimary {
+    background: linear-gradient(90deg, #00e5ff, #ff2e63) !important;
+    color: #05070d !important;
+    font-weight: 700 !important;
+    border-radius: 10px !important;
+    box-shadow: 0 0 16px rgba(0, 229, 255, 0.45) !important;
+}
+.MuiButton-outlinedPrimary {
+    color: #00e5ff !important;
+    border: 1px solid rgba(0, 229, 255, 0.65) !important;
+    border-radius: 10px !important;
+    background: rgba(0, 229, 255, 0.06) !important;
+}
+.MuiButton-outlinedPrimary:hover {
+    background: rgba(0, 229, 255, 0.15) !important;
+    box-shadow: 0 0 14px rgba(0, 229, 255, 0.4) !important;
+}
+
+/* --- Chat input --- */
+.MuiInputBase-root {
+    background: rgba(8, 13, 24, 0.85) !important;
+    border: 1px solid rgba(0, 229, 255, 0.25) !important;
+    border-radius: 12px !important;
+}
+
+/* --- Neon scrollbar --- */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #05070d; }
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(#00e5ff, #ff2e63);
+    border-radius: 4px;
+}
+
+/* --- Hero title glow --- */
+h1 {
+    font-size: 28px !important;
+    text-shadow: 0 0 14px rgba(0, 229, 255, 0.6), 0 0 30px rgba(255, 46, 99, 0.35) !important;
+}
+
+/* --- Neon links --- */
+a { color: #00e5ff !important; text-decoration: none; }
+a:hover { text-shadow: 0 0 8px rgba(0, 229, 255, 0.6); }
+
+/* =====================================================
+   VECTRA AI — BRANDING
+   ===================================================== */
+
+/* Vectra header branding */
+.vectra-brand {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    height: 100% !important;
+    margin-left: 16px !important;
+}
+
+.vectra-brand img {
+    height: 38px !important;
+    width: auto !important;
+    display: block !important;
+}
+
+.vectra-brand span {
+    color: #ffffff !important;
+    font-family: 'Orbitron', sans-serif !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.5px !important;
+    white-space: nowrap !important;
+    text-shadow: 0 0 8px rgba(0, 229, 255, 0.4) !important;
+}

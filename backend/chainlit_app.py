@@ -126,12 +126,14 @@ async def start():
     actions = [
         cl.Action(
             name="run_autonomous_pipeline",
+            payload={},
             value="run",
             label="🚀 Run Autonomous Sales Day",
             description="Process all NEW leads in Sheets autonomously"
         ),
         cl.Action(
             name="generate_bi_report",
+            payload={},
             value="report",
             label="📊 Generate Strategic BI Report",
             description="CRO-level analysis of your sales performance"

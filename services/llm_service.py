@@ -40,7 +40,7 @@ async def call_fireworks_agent(system_prompt: str, user_message: str, max_retrie
     payload = {
         "model": "accounts/fireworks/models/deepseek-v4-flash-0731",
         "messages": [
-            {"role": "system", "content": system_prompt},
+            {"role": "system", "content": system_prompt + "\n\nIMPORTANT: Always respond in English only, regardless of the language the user or lead uses."},
             {"role": "user", "content": user_message}
         ],
         "max_tokens": 131072,

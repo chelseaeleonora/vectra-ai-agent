@@ -29,14 +29,14 @@ def extract_json_from_text(text: str) -> Dict[str, Any]:
             return json.loads(json_str)
     raise ValueError("No valid JSON object found.")
 
-async def call_fireworks_agent(system_prompt: str, user_message: str, max_retries: int = 2) -> str:
+async def call_fireworks_agent(system_prompt: str, user_message: str, max_retries: int = 4) -> str:
     api_key = os.getenv("FIREWORKS_API_KEY")
     if not api_key:
         raise ValueError("FIREWORKS_API_KEY not found!")
-        
+
     url = "https://api.fireworks.ai/inference/v1/chat/completions"
     headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
-    
+
     payload = {
         "model": "accounts/fireworks/models/deepseek-v4-flash-0731",
         "messages": [
@@ -49,16 +49,42 @@ async def call_fireworks_agent(system_prompt: str, user_message: str, max_retrie
         "service_tier": "priority"
     }
 
+    last_error = None
     for attempt in range(max_retries):
         try:
             async with httpx.AsyncClient(timeout=60.0) as client:
                 response = await client.post(url, json=payload, headers=headers)
                 response.raise_for_status()
-                return response.json()["choices"][0]["message"]["content"]
+                data = response.json()
+                content = data["choices"][0]["message"]["content"]
+                finish_reason = data["choices"][0].get("finish_reason", "unknown")
+
+                # Check if response was properly completed
+                valid_ending = content.rstrip().endswith(('.', '!', '?', '"', "'"))
+                
+                if finish_reason == "stop" and valid_ending:
+                    return content
+                elif finish_reason == "length" or not valid_ending:
+                    # Truncated or incomplete - retry with higher temperature for variation
+                    print(f"[VECTRA RETRY] Attempt {attempt + 1}: finish_reason={finish_reason}, ending_valid={valid_ending}")
+                    if attempt < max_retries - 1:
+                        await asyncio.sleep(1)
+                        # Slightly increase temperature for retry to get different response
+                        payload["temperature"] = min(payload["temperature"] + 0.1, 0.9)
+                        continue
+                    else:
+                        print(f"[VECTRA WARNING] Returning potentially truncated response after {max_retries} attempts")
+                        return content
+                else:
+                    return content
+
         except Exception as e:
+            last_error = e
             if attempt == max_retries - 1:
                 raise RuntimeError(f"Fireworks API failed: {str(e)}")
             await asyncio.sleep(2)
+    
+    raise RuntimeError(f"Fireworks API failed after {max_retries} attempts: {last_error}")
 
 async def call_gemini_guardrail(text_to_audit: str, business_rules: str) -> GuardrailDecision:
     api_key = os.getenv("GEMINI_API_KEY")

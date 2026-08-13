@@ -73,7 +73,12 @@ async def call_fireworks_agent(system_prompt: str, user_message: str, max_retrie
                         payload["temperature"] = min(payload["temperature"] + 0.1, 0.9)
                         continue
                     else:
-                        print(f"[VECTRA WARNING] Returning potentially truncated response after {max_retries} attempts")
+                        print(f"[VECTRA WARNING] Truncation persisted - trimming to last complete sentence")
+                        for sep in ('. ', '! ', '? '):
+                            idx = content.rfind(sep)
+                            if idx > 0:
+                                content = content[:idx + 1].strip()
+                                break
                         return content
                 else:
                     return content

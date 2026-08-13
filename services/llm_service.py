@@ -74,11 +74,20 @@ async def call_fireworks_agent(system_prompt: str, user_message: str, max_retrie
                         continue
                     else:
                         print(f"[VECTRA WARNING] Truncation persisted - trimming to last complete sentence")
-                        for sep in ('. ', '! ', '? '):
-                            idx = content.rfind(sep)
-                            if idx > 0:
-                                content = content[:idx + 1].strip()
-                                break
+                        # Find last complete sentence (ends with . ! ? followed by space or end)
+                        import re
+                        # Match sentence endings more robustly
+                        matches = list(re.finditer(r'[.!?](?:\s|$)', content))
+                        if matches:
+                            last_complete = matches[-1]
+                            content = content[:last_complete.end()].strip()
+                            print(f"[VECTRA TRIM] Trimmed to {len(content)} chars")
+                        else:
+                            # No complete sentence found, try to find last period anywhere
+                            last_period = content.rfind('.')
+                            if last_period > 0:
+                                content = content[:last_period + 1].strip()
+                            print(f"[VECTRA TRIM] Fallback trim applied")
                         return content
                 else:
                     return content

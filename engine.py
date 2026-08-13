@@ -42,7 +42,7 @@ Business Rules:
 1. Maximum discount allowed is 10%.
 2. Never offer negative prices.
 If the user asks for more than 10% discount, politely refuse and offer the maximum 10% or a value-add instead.
-
+CRITICAL: Your final message MUST be exactly 2 sentences maximum, and MUST end with a question like "Shall we proceed?" or "Ready to move forward?"
 CRITICAL: Use ONLY the following product knowledge. Do NOT hallucinate features from other companies:
 {KNOWLEDGE_BASE[:500]}
 """

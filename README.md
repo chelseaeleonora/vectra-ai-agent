@@ -1,49 +1,76 @@
+```markdown
+<div align="center">
 
 # ⚡ VECTRA AI — Autonomous CRO
 
-**A CRM-native autonomous sales system that qualifies, negotiates, closes, and learns — running entirely on Google Sheets.**
+### A CRM-native autonomous sales system that qualifies, negotiates, closes, and learns — running entirely on Google Sheets.
 
-*Build with Gemini XPRIZE 2026 • Category: Small Business Services*
+[![LIVE DEMO](https://img.shields.io/badge/🔴_LIVE_DEMO-Railway-6C63FF?style=for-the-badge)](https://vectra-ai-agent-production.up.railway.app/)
+[![Gemini XPRIZE 2026](https://img.shields.io/badge/Gemini_XPRIZE-2026-4285F4?style=for-the-badge&logo=google)](https://xprize.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
+[![Watch Demo](https://img.shields.io/badge/▶️_Watch_Demo-YouTube-FF0000?style=for-the-badge)](https://youtu.be/Nrrp1flN0v8)
+
+**Built for the [Gemini XPRIZE 2026](https://xprize.org/) • Category: Small Business Services**
+
+</div>
 
 ---
 
 ## 📖 Overview
 
-Vectra AI is not a chatbot — it is an **autonomous revenue operator**.
-A human founder feeds leads into a Google Sheet; from that moment, the
-headless Autonomous Pipeline takes over 100% of the sales operation:
-qualifying prospects, adapting personality, negotiating within strict
-compliance guardrails, logging outcomes, and learning from every deal.
+Vectra AI is not a chatbot — it is an **autonomous revenue operator**. A human founder feeds leads into a Google Sheet; from that moment, the headless Autonomous Pipeline takes over 100% of the sales operation: qualifying prospects, adapting personality, negotiating within strict compliance guardrails, logging outcomes, and learning from every deal.
 
-No expensive CRM. No database. No sales team. **Near-zero cost per deal —
-entire system runs on free tiers, with DeepSeek reasoning averaging well
-under $0.01 per closed deal.**
+No expensive CRM. No database. No sales team. Near-zero cost per deal — the entire system runs on free tiers, with DeepSeek reasoning averaging well under **$0.01 per closed deal**.
 
-![Vectra AI War Room](assets/war_room.png)
+> *"Rather lose a deal than lie to win one."* — Every Vectra response is audit-logged, compliance-checked, and grounded in the knowledge base. The AI never grades its own deals; outcomes are derived from the customer's own words.
+
+![Vectra AI War Room — glass-box multi-agent workflow](assets/war_room.png)
+
+> More product screenshots — CRM logs, Strategy Stats, BI reports, and the Railway deployment — live in the [`assets/`](assets) folder.
+
+---
 
 ## 🧬 The 4 Signature Capabilities
 
 | # | Capability | What it does |
 |---|------------|--------------|
-| 1 | **Memory-Aware Negotiation** | CRM-native long-term memory — the AI greets returning leads with full context ("Last time we discussed…") |
-| 2 | **Outcome Learning** | Deterministic strategy classifier + win-rate analytics; the Closer automatically prefers historically winning strategies |
-| 3 | **Adaptive Personality Engine** | Detects DRIVER / ANALYTICAL / AMIABLE / EXPRESSIVE leads and adapts tone in real time |
-| 4 | **Strategic BI (CRO Mode)** | DeepSeek acts as Chief Revenue Officer, writing 3-paragraph strategic reports from live CRM data |
+| 1 | **Memory-Aware Negotiation** | CRM-native long-term memory — the AI greets returning leads with full context (*"Last time we discussed…"*) |
+| 2 | **Autonomous Outcome Detection** | Deal status (`CLOSED` / `LOST` / `NEGOTIATING`) is derived **deterministically from the customer's own words** — the AI never self-reports wins |
+| 3 | **Adaptive Personality Engine** | Detects `DRIVER` / `ANALYTICAL` / `AMIABLE` / `EXPRESSIVE` leads and adapts tone in real time — zero LLM cost, pure heuristics |
+| 4 | **Strategic BI (CRO Mode)** | DeepSeek acts as Chief Revenue Officer, writing honest 3-paragraph strategic reports from live CRM data — including candid admissions when the sample size is too small to conclude |
+
+---
+
+## 🛡️ Compliance That Cannot Be Bypassed
+
+Vectra ships with a **double-layer Finance Guardrail**:
+
+- **Layer 1 — Gemini 3.5 Flash-Lite** audits every Closer response for discount violations, negative prices, and unrealistic promises
+- **Layer 2 — Deterministic hard rules** catch edge cases Gemini may miss (fail-closed design: if audit is uncertain, the response is blocked and self-corrected)
+- **Hard ceiling:** 10% maximum discount — CEO override attempts are politely refused
+- **Honesty-first:** requests for hallucinated features (e.g., "hardware firewall", "100% uptime forever") are declined with the actual product scope
+
+---
 
 ## 🏗️ Ultra-Lean Hybrid Architecture (95/5)
 
-- **DeepSeek V4 Flash (95%)** — all reasoning: routing, qualification, negotiation, memory synthesis, CRO reports
-- **Gemini 3.5 Flash Lite (5%)** — ONLY the Finance Guardrail compliance audit (discount ≤ 10%, no false promises, self-correction loop)
-- **Google Sheets** — the CRM database (Lead Pipeline, CRM Log, Lead Memory, Strategy Stats)
-- **Deterministic Python** — strategy detection, personality heuristics, stats aggregation (zero LLM cost)
+| Layer | Role |
+|-------|------|
+| **DeepSeek V4 Pro** (95%) | All reasoning: routing, qualification, negotiation, memory synthesis, CRO reports |
+| **Gemini 3.5 Flash Lite** (5%) | ONLY the Finance Guardrail compliance audit |
+| **Google Sheets** | The CRM database (Lead Pipeline, CRM Log, Lead Memory, Strategy Stats) |
+| **Deterministic Python** | Strategy detection, personality heuristics, outcome detection, stats aggregation — **zero LLM cost** |
 
 ```
 Lead (Sheets / Chat) → Manager Agent (Router)
    → SDR Agent (Qualify)  /  CLOSER Agent (Negotiate)
         → Finance Guardrail (Gemini audit + self-correction)
              → Zero-Click Execution (Google Sheets logging)
-                  → Strategy Stats + Lead Memory (learning loop)
+                  → Autonomous Outcome Detection (from customer's words)
+                       → Strategy Stats + Lead Memory (learning loop)
 ```
+
+---
 
 ## 🗂️ Repository Structure
 
@@ -57,6 +84,8 @@ engine.py                  # Terminal test harness
 requirements.txt
 ```
 
+---
+
 ## 🚀 Quick Start
 
 **Prerequisites:** Python 3.10+, a Fireworks AI API key, a Google Gemini API key, and a Google Service Account JSON.
@@ -69,43 +98,110 @@ pip install -r requirements.txt
 ```
 
 Create `.env`:
-```
+
+```bash
 FIREWORKS_API_KEY=your_key
 GEMINI_API_KEY=your_key
 ```
 
-Place your Service Account file as `sheets_credentials.json` in the root
-(or set `GOOGLE_CREDENTIALS_JSON` env var for cloud deployment).
+Place your Service Account file as `sheets_credentials.json` in the root (or set `GOOGLE_CREDENTIALS_JSON` env var for cloud deployment).
 
-Run:
+**Run:**
+
 ```bash
 chainlit run backend/chainlit_app.py
 ```
-Then click **🚀 Run Autonomous Sales Day** to process all `NEW` leads in your
-Lead Pipeline tab — headlessly, with zero human intervention.
 
-## ☁️ Deployment (Render / Railway)
+Then click **🚀 Run Autonomous Sales Day** to process all `NEW` leads in your Lead Pipeline tab — headlessly, with zero human intervention.
 
-- **Build:** `pip install -r requirements.txt`
-- **Start:** `chainlit run backend/chainlit_app.py --host 0.0.0.0 --port $PORT --headless`
-- **Env vars:** `FIREWORKS_API_KEY`, `GEMINI_API_KEY`, `GOOGLE_CREDENTIALS_JSON`
+---
 
-## 💰 Unit Economics
+## ☁️ Deployment (Railway / Render)
+
+| | |
+|---|---|
+| **Build** | `pip install -r requirements.txt` |
+| **Start** | `chainlit run backend/chainlit_app.py --host 0.0.0.0 --port $PORT --headless` |
+| **Env vars** | `FIREWORKS_API_KEY`, `GEMINI_API_KEY`, `GOOGLE_CREDENTIALS_JSON` |
+
+
+---
+
+## 💰 Unit Economics (transparent math)
 
 | Item | Cost |
 |------|------|
-| Server / database | **$0** (Google Sheets free tier) |
-| Gemini guardrail | **$0** (Google AI Studio free tier) |
-| DeepSeek reasoning | **< $0.01/deal** (estimated upper bound, varies by conversation length) |
-| Monthly infrastructure | **$0** (entire system runs on free tiers by design) |
+| Server / database | $0 (Google Sheets free tier) |
+| Gemini guardrail | $0 (Google AI Studio free tier) |
+| DeepSeek V4 Pro reasoning (Fireworks, Priority tier) | $1.65/M uncached input · $0.055/M cached input · $4.95/M output |
+| Typical closed deal | A few cents — 2–4 negotiation turns of ~3K tokens each |
+| Monthly infrastructure | $0 by design; only LLM inference carries a cost |
+
+*Per-token prices are Fireworks' published Priority-tier rates for `deepseek-v4-pro-0813` (August 2026). Per-deal cost is a qualitative estimate that varies with conversation length, retries, and prompt caching.*
+
+---
+
+## 📊 CRM Structure (Google Sheets)
+
+The entire business runs on 5 tabs in a single spreadsheet:
+
+| Tab | Purpose |
+|-----|---------|
+| **Lead Pipeline** | Incoming leads queued for the Autonomous Pipeline |
+| **CRM Log** | Zero-click audit trail of every interaction |
+| **Lead Memory** | Persistent conversation history per `Lead_ID` |
+| **Strategy Stats** | Auto-updated win-rate per personality segment |
+| **BI Reports** | Archive of CRO-mode strategic analyses |
+
+---
 
 ## ⚖️ What This Is — and Is Not
 
-**Is:** a production-grade, auditable sales-automation template you customize
-(knowledge base, prompts, business rules) for any product or service.
-**Is not:** a lead generator, payment processor, or email sender. Buyers provide
-their own leads, payment links, and delivery automation.
+**Is:** a production-grade, auditable sales-automation template you customize (knowledge base, prompts, business rules) for any product or service.
 
-## License
+**Is not:** a lead generator, payment processor, or email sender. Buyers provide their own leads, payment links, and delivery automation.
 
-MIT — learn, modify, deploy.
+---
+
+## 🤝 Commercialization Note (Honest)
+
+Vectra AI went live on **three marketplaces simultaneously on day 3** of its existence — we discovered the Gemini XPRIZE late in the cycle and worked a compressed timeline. Zero sales at day 3 of a brand-new, zero-ad-spend listing is expected and normal. What matters is that the **full commercial path exists and works end-to-end**:
+
+```
+public repository → one-click deploy → live CRM → purchasable listing at $9 early-bird
+```
+
+We would rather report an honest day-3 listing than inflate numbers we don't have. This aligns with the core philosophy of the system itself: *rather lose a deal than lie to win one.*
+
+---
+
+## 🔗 Links
+
+| | |
+|---|---|
+| 🔴 **Live Demo** | [vectra-ai-agent-production.up.railway.app](https://vectra-ai-agent-production.up.railway.app/) |
+| ▶️ **Demo Video** | [Watch on YouTube](https://youtu.be/Nrrp1flN0v8) |
+| 💻 **Source Code** | [github.com/chelseaeleonora/vectra-ai-agent](https://github.com/chelseaeleonora/vectra-ai-agent) |
+| 🛒 **Gumroad** ($9 early-bird) | [eleonora627.gumroad.com/l/uguqa](https://eleonora627.gumroad.com/l/uguqa) |
+| 🛒 **Whop** ($9 early-bird) | [Whop listing](https://whop.com/joined/vectra-ai-autonomous-multi-agent-sales-system-for-smbs-full-source-code-setup-guide/products/vectra-ai-autonomous-multi-agent-sales-system-source-code-setup-guide/) |
+| 🛒 **Payhip** ($9 early-bird) | [payhip.com/b/FWV8D](https://payhip.com/b/FWV8D) |
+
+---
+
+## 📜 License
+
+**MIT** — learn, modify, deploy.
+
+---
+
+<div align="center">
+
+**Built with Python · Chainlit · DeepSeek V4 Pro on Fireworks · Gemini 3.5 Flash-Lite · Google Sheets API · Docker · Railway**
+
+*An autonomous revenue-operations layer for SMBs — shipped to three marketplaces for the Gemini XPRIZE 2026.*
+
+</div>
+```
+
+---
+

@@ -41,7 +41,7 @@ def log_deal_to_sheet(user_msg: str, agent_used: str, final_response: str, statu
         sheet = client.open_by_key(SPREADSHEET_ID).sheet1
         
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        sheet.append_row([timestamp, user_msg, agent_used, final_response, status,
+        sheet.append_row([timestamp, user_msg, agent_used, final_response, status, discount, strategy_used, deal_outcome, personality,
         ])
 
         # Keep the learning dashboard in sync after every logged deal

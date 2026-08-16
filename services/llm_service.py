@@ -38,7 +38,7 @@ async def call_fireworks_agent(system_prompt: str, user_message: str, max_retrie
     headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
 
     payload = {
-        "model": "accounts/fireworks/models/deepseek-v4-flash-0731",
+        "model": "accounts/fireworks/models/deepseek-v4-pro-0813",
         "messages": [
             {"role": "system", "content": system_prompt + "\n\nIMPORTANT: Always respond in English only, regardless of the language the user or lead uses."},
             {"role": "user", "content": user_message}

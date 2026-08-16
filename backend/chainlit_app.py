@@ -252,7 +252,7 @@ async def main(message: cl.Message):
                     status="APPROVED",
                     discount=discount_val,
                     strategy_used=detect_strategy(final_response),
-                    deal_outcome="CLOSED",
+                    deal_outcome="NEGOTIATING",
                     personality=personality,
                 )
 
@@ -326,7 +326,7 @@ async def process_lead_autonomous(user_msg: str, lead_id: str = "WALK-IN", compa
         status=status,
         discount=discount_val,
         strategy_used=detect_strategy(final_response),
-        deal_outcome="CLOSED" if status == "APPROVED" else "LOST",
+        deal_outcome="NEGOTIATING" if status == "APPROVED" else "LOST",
         personality=personality,
     )
     return {

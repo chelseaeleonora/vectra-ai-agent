@@ -41,7 +41,7 @@ def log_deal_to_sheet(user_msg: str, agent_used: str, final_response: str, statu
         sheet = client.open_by_key(SPREADSHEET_ID).sheet1
         
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        sheet.append_row([timestamp, user_msg, agent_used, final_response[:200], status, discount, strategy_used, deal_outcome, personality,
+        sheet.append_row([timestamp, user_msg, agent_used, final_response, status,
         ])
 
         # Keep the learning dashboard in sync after every logged deal
@@ -376,7 +376,7 @@ async def run_autonomous_sales_day(status_msg=None):
             row_idx = idx + 2  # 1-indexed + header offset
 
             if "Stage" in col_map: sheet.update_cell(row_idx, col_map["Stage"] + 1, result["stage"])
-            if "Final_Response" in col_map: sheet.update_cell(row_idx, col_map["Final_Response"] + 1, result["response"][:500])
+            if "Final_Response" in col_map: sheet.update_cell(row_idx, col_map["Final_Response"] + 1, result["response"])
             if "Status" in col_map: sheet.update_cell(row_idx, col_map["Status"] + 1, result["status"])
             if "Discount" in col_map: sheet.update_cell(row_idx, col_map["Discount"] + 1, result["discount"])
             if "Timestamp" in col_map: sheet.update_cell(row_idx, col_map["Timestamp"] + 1, datetime.now().strftime("%Y-%m-%d %H:%M:%S"))

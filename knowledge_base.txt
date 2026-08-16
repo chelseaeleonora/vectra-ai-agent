@@ -7,34 +7,41 @@ TARGET MARKET: Small to Medium Businesses (SMBs)
 
 CORE FEATURES:
 1. Multi-Agent Orchestration: Manager, SDR, Closer, and Finance agents work together autonomously.
-2. Hybrid LLM Architecture: Uses Fireworks AI (DeepSeek-V4-Flash) for fast reasoning and Google Gemini for strict compliance auditing.
-3. Double-Layer Guardrail: Combines AI Audit (Gemini) with Hard-Coded Regex Rules to prevent illegal discounts and hallucinations.
+2. Hybrid LLM Architecture: Uses Fireworks AI (DeepSeek-V4-Pro) for fast reasoning and Google Gemini for strict compliance auditing.
+3. Double-Layer Guardrail: Combines AI Audit (Gemini) with deterministic hard rules to prevent illegal discounts, negative prices, and unrealistic promises.
 4. Zero-Click Execution: Automatically logs deals and updates CRM status in Google Sheets without human intervention.
-5. Inner Monologue UI: Displays real-time agent thinking process for full transparency.
+5. Glass-Box Workflow UI: Displays every agent decision (routing, negotiation, audit, execution) in real time for full transparency.
+6. Memory-Aware Negotiation: CRM-native long-term memory; the AI acknowledges returning leads with full context.
+7. Autonomous Outcome Detection: Deal outcomes (CLOSED / LOST / NEGOTIATING) are derived from the customer's own words, never self-reported by the AI.
+8. Adaptive Personality Engine: Detects DRIVER / ANALYTICAL / AMIABLE / EXPRESSIVE communication styles and adapts tone.
+9. Strategic BI (CRO Mode): Writes Chief-Revenue-Officer-level strategic reports from live CRM data.
 
 PRICING & DISCOUNT POLICY:
 - Maximum discount allowed: 10%
 - No negative prices allowed
-- No unrealistic promises (e.g., free lifetime upgrades)
+- No unrealistic promises (e.g., free lifetime upgrades, guaranteed results, uptime guarantees)
+- Discounts are only offered when the customer asks about pricing or discounts
 - All deals must be audited by Finance Agent before approval
 
 BUSINESS RULES:
-1. AI agents must strictly adhere to the 10% discount limit.
-2. AI must never hallucinate product features or pricing.
+1. AI agents must strictly adhere to the 10% discount ceiling.
+2. AI must never hallucinate product features or pricing. Vectra AI is a software-only sales automation platform: no hardware, no cybersecurity or firewall products, no guaranteed outcomes.
 3. All negotiations must be logged in Google Sheets for audit trail.
 
 COMPETITIVE ADVANTAGE:
-- Ultra-lean architecture: No expensive Vector DBs or bloated frameworks.
-- Enterprise-grade security with bulletproof guardrails.
-- Production-ready with real revenue generation capability.
+- Ultra-lean architecture: No expensive vector DBs or bloated frameworks; Google Sheets is the CRM.
+- Double-layer compliance: deterministic hard rules plus Gemini audit, fail-closed by design.
+- Honest by construction: the AI never grades its own deals and never promises what it cannot deliver.
 
 USE CASES:
 - Automated sales qualification (SDR Agent)
 - Price negotiation with strict compliance (Closer + Finance Agents)
 - Real-time CRM updates and deal logging (Zero-Click Execution)
+- CRO-level strategic reporting over live CRM data
 
 TECH STACK:
-- Python 3.12.9, FastAPI, Chainlit
-- Fireworks AI (DeepSeek-V4-Flash-0731) for reasoning
+- Python 3.12, Chainlit
+- Fireworks AI (DeepSeek-V4-Pro) for reasoning
 - Google Gemini (3.5-flash-lite) for compliance auditing
 - Google Sheets API for CRM and logging
+- Docker + Railway for deployment

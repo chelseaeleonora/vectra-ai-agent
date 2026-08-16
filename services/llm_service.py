@@ -171,3 +171,16 @@ def _hardcoded_guardrail_fallback(text: str) -> GuardrailDecision:
         return GuardrailDecision(is_approved=False, violation_type="excessive_discount", reason=f"Hard rule: {max_discount}% > 10%", extracted_discount=max_discount)
     
     return GuardrailDecision(is_approved=True, violation_type=None, reason=f"Hard rule: {max_discount}% <= 10%. Safe.", extracted_discount=max_discount)
+
+def sanitize_ending(text: str) -> str:
+    """Final safety net: never return mid-sentence endings."""
+    import re
+    text = text.strip()
+    applied = False
+    if text and text[-1] not in '.!?"\'':
+        cuts = list(re.finditer(r'[.!?]\s', text))
+        if cuts:
+            text = text[:cuts[-1].end()].strip()
+            applied = True
+    print(f"[VECTRA SANITIZE] applied={applied} tail={text[-25:]!r}", flush=True)
+    return text

@@ -152,8 +152,28 @@ def _hardcoded_guardrail_fallback(text: str) -> GuardrailDecision:
 
     # Ekstrak angka diskon
     matches = re.findall(r'(\d+)%?\s*(?:discount|off)', text_lower)
+        
     if not matches:
-        return GuardrailDecision(is_approved=True, violation_type=None, reason="No discount detected.", extracted_discount=0.0)
+        unrealistic_keywords = [
+            "lifetime", "forever", "unlimited", "guaranteed", "100% uptime",
+            "free maintenance", "no cost", "zero cost"
+        ]
+        found_unrealistic = [word for word in unrealistic_keywords if word in text_lower]
+        
+        if found_unrealistic:
+            return GuardrailDecision(
+                is_approved=False,
+                violation_type="unrealistic_promise",
+                reason=f"Hard rule: Contains unrealistic promise: {', '.join(found_unrealistic)}",
+                extracted_discount=0.0
+            )
+        
+        return GuardrailDecision(
+            is_approved=True,
+            violation_type=None,
+            reason="No discount or unrealistic promises detected.",
+            extracted_discount=0.0
+        )
     
     max_discount = max([float(m) for m in matches])
     

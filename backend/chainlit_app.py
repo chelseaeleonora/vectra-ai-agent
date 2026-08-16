@@ -117,6 +117,28 @@ CRITICAL: Use ONLY the following product knowledge. Do NOT hallucinate features 
 
 FINANCE_RULES = "1. Maximum discount allowed is strictly 10%. 2. Prices must never be negative. 3. No unrealistic promises."
 
+def detect_deal_outcome(user_msg: str, status: str) -> str:
+    """Autonomous deal-outcome detection derived from the customer's own words.
+
+    CLOSED      = customer explicitly accepted the offer
+    LOST        = customer explicitly rejected, or the proposal failed the guardrail
+    NEGOTIATING = conversation is still open
+    """
+    if status != "APPROVED":
+        return "LOST"
+    text = user_msg.lower()
+    words = set("".join(ch for ch in word if ch.isalpha() or ch == "'") for word in text.split())
+    lost_words = {"no", "nope", "reject", "decline", "cancel", "quit"}
+    closed_words = {"yes", "yeah", "ok", "okay", "sure", "accept", "accepted",
+                    "deal", "proceed", "sign", "buy", "purchase", "agreed"}
+    lost_phrases = ["too expensive", "not interested", "walk away"]
+    closed_phrases = ["let's proceed", "move forward", "sounds good", "go ahead"]
+    if any(phrase in text for phrase in lost_phrases) or (words & lost_words):
+        return "LOST"
+    if any(phrase in text for phrase in closed_phrases) or (words & closed_words):
+        return "CLOSED"
+    return "NEGOTIATING"
+
 # --- Helper: Agent Router ---
 async def get_agent_response(agent_type: str, message: str) -> str:
     if agent_type == "MANAGER": prompt = MANAGER_PROMPT
@@ -252,7 +274,7 @@ async def main(message: cl.Message):
                     status="APPROVED",
                     discount=discount_val,
                     strategy_used=detect_strategy(final_response),
-                    deal_outcome="NEGOTIATING",
+                    deal_outcome=detect_deal_outcome(user_msg, "APPROVED"),
                     personality=personality,
                 )
 
@@ -326,7 +348,7 @@ async def process_lead_autonomous(user_msg: str, lead_id: str = "WALK-IN", compa
         status=status,
         discount=discount_val,
         strategy_used=detect_strategy(final_response),
-        deal_outcome="NEGOTIATING" if status == "APPROVED" else "LOST",
+        deal_outcome=detect_deal_outcome(user_msg, status),
         personality=personality,
     )
     return {

@@ -1,6 +1,6 @@
 import asyncio
 import time
-from services.llm_service import call_fireworks_agent, call_gemini_guardrail
+from services.llm_service import call_fireworks_agent, call_gemini_guardrail, sanitize_ending
 
 # --- Load Knowledge Base for RAG ---
 def load_knowledge_base() -> str:
@@ -65,7 +65,7 @@ async def get_agent_response(agent_type: str, message: str) -> str:
     else:
         raise ValueError(f"Unknown agent: {agent_type}")
         
-    return await call_fireworks_agent(prompt, message)
+    return sanitize_ending(await call_fireworks_agent(prompt, message))
 
 # --- Helper: Timer ---
 def log_step(step_name: str):

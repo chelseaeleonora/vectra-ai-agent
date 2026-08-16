@@ -15,7 +15,7 @@ load_dotenv()
 # Ensure root folder is in path to import services
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from services.llm_service import call_fireworks_agent, call_gemini_guardrail
+from services.llm_service import call_fireworks_agent, call_gemini_guardrail, sanitize_ending
 
 # --- Google Sheets Integration for Zero-Click Execution ---
 SCOPE = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
@@ -123,7 +123,7 @@ async def get_agent_response(agent_type: str, message: str) -> str:
     elif agent_type == "SDR": prompt = SDR_PROMPT
     elif agent_type == "CLOSER": prompt = CLOSER_PROMPT
     else: raise ValueError(f"Unknown agent: {agent_type}")
-    return await call_fireworks_agent(prompt, message)
+    return sanitize_ending(await call_fireworks_agent(prompt, message))
 
 @cl.on_chat_start
 async def start():
@@ -646,7 +646,7 @@ async def generate_strategic_bi_report() -> str:
     """
 
     try:
-        report = await call_fireworks_agent(system_prompt, stats_summary)
+        report = sanitize_ending(await call_fireworks_agent(system_prompt, stats_summary))
         return report
     except Exception as e:
         print(f"  ⚠️ DeepSeek BI Report error -> Fallback to deterministic summary")

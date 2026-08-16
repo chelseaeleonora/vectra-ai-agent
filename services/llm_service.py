@@ -182,5 +182,10 @@ def sanitize_ending(text: str) -> str:
         if cuts:
             text = text[:cuts[-1].end()].strip()
             applied = True
+        else:
+            idx = text.rfind(',')
+            if idx > int(len(text) * 0.4):
+                text = text[:idx].rstrip() + '.'
+                applied = True
     print(f"[VECTRA SANITIZE] applied={applied} tail={text[-25:]!r}", flush=True)
     return text
